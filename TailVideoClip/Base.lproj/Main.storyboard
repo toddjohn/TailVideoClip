@@ -65,25 +65,52 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iyi-IN-FMc">
-                                <rect key="frame" x="540" y="562" width="34" height="30"/>
-                                <state key="normal" title="Start"/>
+                                <rect key="frame" x="519" y="562" width="55" height="30"/>
+                                <state key="normal" title="Capture"/>
                                 <state key="selected" title="Stop"/>
                                 <connections>
-                                    <action selector="toggleRecording:" destination="VmC-mt-CyT" eventType="touchUpInside" id="3Dz-ab-2uL"/>
+                                    <action selector="captureRecording:" destination="VmC-mt-CyT" eventType="touchUpInside" id="oqS-Yc-DEm"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kDJ-K2-Fkz">
+                                <rect key="frame" x="20" y="571" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnI-oi-E8C">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="evZ-m1-ABG">
+                                        <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="evZ-m1-ABG" firstAttribute="centerX" secondItem="BnI-oi-E8C" secondAttribute="centerX" id="Lzv-gf-HjV"/>
+                                    <constraint firstItem="evZ-m1-ABG" firstAttribute="centerY" secondItem="BnI-oi-E8C" secondAttribute="centerY" id="dWC-j2-8R4"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ycf-4L-6qB" firstAttribute="top" secondItem="gn8-hZ-FeZ" secondAttribute="bottom" constant="8" id="7Bj-dN-4sr"/>
+                            <constraint firstItem="jNI-Of-Ubh" firstAttribute="top" secondItem="kDJ-K2-Fkz" secondAttribute="bottom" constant="8" id="8B2-Xy-VcB"/>
                             <constraint firstItem="1yP-qn-FEK" firstAttribute="centerX" secondItem="FNT-Kx-WiI" secondAttribute="centerX" id="ACB-tq-RIB"/>
+                            <constraint firstItem="BnI-oi-E8C" firstAttribute="leading" secondItem="FNT-Kx-WiI" secondAttribute="leading" id="BZ2-Gx-7zg"/>
+                            <constraint firstAttribute="trailing" secondItem="BnI-oi-E8C" secondAttribute="trailing" id="JV8-4g-9gW"/>
+                            <constraint firstItem="BnI-oi-E8C" firstAttribute="top" secondItem="FNT-Kx-WiI" secondAttribute="top" id="KCt-Xb-yOQ"/>
                             <constraint firstItem="Ycf-4L-6qB" firstAttribute="centerX" secondItem="FNT-Kx-WiI" secondAttribute="centerX" id="Lh2-xa-f9o"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Iyi-IN-FMc" secondAttribute="trailing" constant="6" id="Mh8-b3-8jt"/>
+                            <constraint firstItem="jNI-Of-Ubh" firstAttribute="top" secondItem="BnI-oi-E8C" secondAttribute="bottom" id="XMN-gq-GJ7"/>
+                            <constraint firstItem="kDJ-K2-Fkz" firstAttribute="leading" secondItem="FNT-Kx-WiI" secondAttribute="leadingMargin" id="mV4-Qv-SPk"/>
                             <constraint firstItem="jNI-Of-Ubh" firstAttribute="top" secondItem="Iyi-IN-FMc" secondAttribute="bottom" constant="8" id="oad-Km-29f"/>
                             <constraint firstItem="jNI-Of-Ubh" firstAttribute="top" secondItem="1yP-qn-FEK" secondAttribute="bottom" constant="8" id="ww1-NN-EYr"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityView" destination="BnI-oi-E8C" id="ayc-QI-jbO"/>
+                        <outlet property="bufferLabel" destination="kDJ-K2-Fkz" id="dpD-fW-5Ve"/>
                         <outlet property="recordButton" destination="Iyi-IN-FMc" id="s1U-pE-Pou"/>
                         <outlet property="videoPreview" destination="Ycf-4L-6qB" id="9ne-FG-gpw"/>
                     </connections>
