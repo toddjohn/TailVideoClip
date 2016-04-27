@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A869BE41CD0319C00A9F68D /* VideoBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A869BE31CD0319C00A9F68D /* VideoBuffer.swift */; };
 		7AA7DD931CCEDEE10097C2BF /* VideoBufferWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA7DD921CCEDEE10097C2BF /* VideoBufferWriter.swift */; };
 		7AFE777D1CC98ED6006C0BFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE777C1CC98ED6006C0BFA /* AppDelegate.swift */; };
 		7AFE777F1CC98ED6006C0BFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE777E1CC98ED6006C0BFA /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A869BE31CD0319C00A9F68D /* VideoBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoBuffer.swift; sourceTree = "<group>"; };
 		7AA7DD921CCEDEE10097C2BF /* VideoBufferWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoBufferWriter.swift; sourceTree = "<group>"; };
 		7AFE77791CC98ED6006C0BFA /* TailVideoClip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TailVideoClip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFE777C1CC98ED6006C0BFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				7AFE77881CC98ED6006C0BFA /* Info.plist */,
 				7AFE778E1CC98FD9006C0BFA /* VideoViewController.swift */,
 				7AA7DD921CCEDEE10097C2BF /* VideoBufferWriter.swift */,
+				7A869BE31CD0319C00A9F68D /* VideoBuffer.swift */,
 			);
 			path = TailVideoClip;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				7AA7DD931CCEDEE10097C2BF /* VideoBufferWriter.swift in Sources */,
 				7AFE777F1CC98ED6006C0BFA /* ViewController.swift in Sources */,
 				7AFE777D1CC98ED6006C0BFA /* AppDelegate.swift in Sources */,
+				7A869BE41CD0319C00A9F68D /* VideoBuffer.swift in Sources */,
 				7AFE778F1CC98FD9006C0BFA /* VideoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

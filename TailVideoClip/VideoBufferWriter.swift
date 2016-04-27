@@ -10,10 +10,30 @@ import Foundation
 import AVFoundation
 import UIKit
 
+enum VideoOrientation {
+    case Portrait
+    case Landscape
+}
+
 class VideoBufferWriter {
-    class func exportMovie(frames: [UIImage], path: String, size: CGSize, fps: Int32) {
+
+    private var frames: [UIImage]
+    private var path: String
+    private var size: CGSize
+    private var fps: Int32
+    private var orientation: VideoOrientation
+
+    required init (frames: [UIImage], path: String, size: CGSize, fps: Int32, orientation: VideoOrientation) {
+        self.frames = frames
+        self.path = path
+        self.size = size
+        self.fps = fps
+        self.orientation = orientation
+    }
+
+    func exportMovie(completion: ((success: Bool) -> ())? ) {
         // Create AVAssetWriter to write video
-        guard let assetWriter = createAssetWriter(path, size: size) else {
+        guard let assetWriter = createAssetWriter() else {
             NSLog("Error converting images to video: AVAssetWriter not created")
             return
         }
@@ -31,7 +51,7 @@ class VideoBufferWriter {
         assetWriter.startWriting()
         assetWriter.startSessionAtSourceTime(kCMTimeZero)
         if (pixelBufferAdaptor.pixelBufferPool == nil) {
-            NSLog("Error converting images to video: pixelBufferPool nil after starting session")
+            NSLog("Error converting images to video: pixelBufferPool nil after starting session. Make sure that the file does not exist on disk.")
             return
         }
 
@@ -47,11 +67,12 @@ class VideoBufferWriter {
         writerInput.requestMediaDataWhenReadyOnQueue(mediaQueue, usingBlock: { () -> Void in
             // Append unadded images to video but only while input ready
             while (writerInput.readyForMoreMediaData && frameCount < numImages) {
-                let lastFrameTime = CMTimeMake(Int64(frameCount), fps)
+                let lastFrameTime = CMTimeMake(Int64(frameCount), self.fps)
                 let presentationTime = frameCount == 0 ? lastFrameTime : CMTimeAdd(lastFrameTime, frameDuration)
 
-                if !appendPixelBufferForImageAtURL(frames[frameCount], pixelBufferAdaptor: pixelBufferAdaptor, presentationTime: presentationTime) {
+                if !self.appendPixelBufferForImageAtURL(self.frames[frameCount], pixelBufferAdaptor: pixelBufferAdaptor, presentationTime: presentationTime) {
                     NSLog("Error converting images to video: AVAssetWriterInputPixelBufferAdapter failed to append pixel buffer")
+                    completion?(success: false)
                     return
                 }
 
@@ -64,16 +85,17 @@ class VideoBufferWriter {
                 assetWriter.finishWritingWithCompletionHandler {
                     if (assetWriter.error != nil) {
                         NSLog("Error converting images to video: \(assetWriter.error)")
+                        completion?(success: false)
                     } else {
-//                        self.saveVideoToLibrary(NSURL(fileURLWithPath: path))
-                        NSLog("Converted images to movie @ \(path)")
+                        NSLog("Converted images to movie @ \(self.path)")
+                        completion?(success: true)
                     }
                 }
             }
         })
     }
 
-    private class func createAssetWriter(path: String, size: CGSize) -> AVAssetWriter? {
+    private func createAssetWriter() -> AVAssetWriter? {
         // Convert <path> to NSURL object
         let pathURL = NSURL(fileURLWithPath: path)
 
@@ -102,7 +124,7 @@ class VideoBufferWriter {
         }
     }
     
-    private class func appendPixelBufferForImageAtURL(image: UIImage, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor, presentationTime: CMTime) -> Bool {
+    private func appendPixelBufferForImageAtURL(image: UIImage, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor, presentationTime: CMTime) -> Bool {
         var appendSucceeded = false
 
         autoreleasepool {
@@ -129,7 +151,7 @@ class VideoBufferWriter {
         return appendSucceeded
     }
 
-    private class func fillPixelBufferFromImage(image: UIImage, pixelBuffer: CVPixelBufferRef) {
+    private func fillPixelBufferFromImage(image: UIImage, pixelBuffer: CVPixelBufferRef) {
         CVPixelBufferLockBaseAddress(pixelBuffer, 0)
 
         let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer)
@@ -138,8 +160,8 @@ class VideoBufferWriter {
         // Create CGBitmapContext
         let context = CGBitmapContextCreate(
             pixelData,
-            Int(image.size.width),
-            Int(image.size.height),
+            Int(size.width),
+            Int(size.height),
             8,
             CVPixelBufferGetBytesPerRow(pixelBuffer),
             rgbColorSpace,
@@ -147,6 +169,11 @@ class VideoBufferWriter {
         )
 
         // Draw image into context
+        if orientation == .Portrait {
+            CGContextTranslateCTM(context, size.width/2, size.height/2)
+            CGContextRotateCTM(context, CGFloat(-M_PI/2))
+            CGContextTranslateCTM(context, -image.size.width/2, -image.size.height/2)
+        }
         CGContextDrawImage(context, CGRectMake(0, 0, image.size.width, image.size.height), image.CGImage)
         
         CVPixelBufferUnlockBaseAddress(pixelBuffer, 0)

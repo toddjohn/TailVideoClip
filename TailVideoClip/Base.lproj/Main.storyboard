@@ -20,22 +20,57 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9av-xJ-MW8">
-                                <rect key="frame" x="258" y="285" width="84" height="30"/>
-                                <state key="normal" title="Go To Video"/>
+                                <rect key="frame" x="252" y="28" width="97" height="30"/>
+                                <state key="normal" title="Capture video"/>
                                 <connections>
                                     <segue destination="VmC-mt-CyT" kind="presentation" id="tgj-Ro-ace"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPc-cE-N9e">
+                                <rect key="frame" x="165" y="66" width="270" height="330"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="270" id="52e-1b-IuH"/>
+                                    <constraint firstAttribute="width" secondItem="UPc-cE-N9e" secondAttribute="height" multiplier="9:11" id="9Da-gd-UzP"/>
+                                </constraints>
+                            </view>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aFJ-zu-KJe">
+                                <rect key="frame" x="163" y="404" width="274" height="31"/>
+                                <connections>
+                                    <action selector="sliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Exp-CZ-Rdd"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfM-l4-JuP">
+                                <rect key="frame" x="285" y="442" width="30" height="30"/>
+                                <state key="normal" title="Play"/>
+                                <state key="selected" title="Pause"/>
+                                <connections>
+                                    <action selector="playPause:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Jh-NH-bLv"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9av-xJ-MW8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KSw-LM-QN8"/>
+                            <constraint firstItem="aFJ-zu-KJe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3qD-lG-4ot"/>
+                            <constraint firstItem="aFJ-zu-KJe" firstAttribute="width" secondItem="UPc-cE-N9e" secondAttribute="width" id="6Gg-RK-YCv"/>
+                            <constraint firstItem="xfM-l4-JuP" firstAttribute="top" secondItem="aFJ-zu-KJe" secondAttribute="bottom" constant="8" id="KYS-qC-qO5"/>
+                            <constraint firstItem="xfM-l4-JuP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RCg-bY-c28"/>
+                            <constraint firstItem="UPc-cE-N9e" firstAttribute="top" secondItem="9av-xJ-MW8" secondAttribute="bottom" constant="8" id="RwH-A6-o00"/>
+                            <constraint firstItem="aFJ-zu-KJe" firstAttribute="top" secondItem="UPc-cE-N9e" secondAttribute="bottom" constant="8" id="d69-tE-43i"/>
+                            <constraint firstItem="9av-xJ-MW8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="dqo-tU-9rX"/>
                             <constraint firstItem="9av-xJ-MW8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sja-hD-92v"/>
+                            <constraint firstItem="UPc-cE-N9e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yoj-DU-qUL"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="playButton" destination="xfM-l4-JuP" id="XLa-FY-Fp5"/>
+                        <outlet property="timeSlider" destination="aFJ-zu-KJe" id="XT1-uC-2Rm"/>
+                        <outlet property="videoView" destination="UPc-cE-N9e" id="4mh-YL-Tuo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="433" y="417"/>
         </scene>
         <!--Video View Controller-->
         <scene sceneID="9hQ-9y-9Kk">
@@ -57,10 +92,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ycf-4L-6qB">
-                                <rect key="frame" x="180" y="28" width="240" height="240"/>
+                                <rect key="frame" x="180" y="28" width="240" height="293"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Ycf-4L-6qB" secondAttribute="height" multiplier="1:1" id="ekR-z0-4xh"/>
+                                    <constraint firstAttribute="width" secondItem="Ycf-4L-6qB" secondAttribute="height" multiplier="9:11" id="ekR-z0-4xh"/>
                                     <constraint firstAttribute="width" constant="240" id="ppo-FI-q0m"/>
                                 </constraints>
                             </view>
@@ -81,7 +116,7 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnI-oi-E8C">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="evZ-m1-ABG">
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="evZ-m1-ABG">
                                         <rect key="frame" x="282" y="281" width="37" height="37"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -117,7 +152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iMn-8m-Lqs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1165" y="429"/>
+            <point key="canvasLocation" x="1165" y="417"/>
         </scene>
     </scenes>
 </document>
